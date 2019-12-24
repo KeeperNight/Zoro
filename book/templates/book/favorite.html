@@ -1,0 +1,70 @@
+{% extends 'book/book_base.html' %}
+{% load ratings %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<br><br>
+<!-- SEARCH LANG TO SEND QUERY TO VIEW -->
+	<form class="form-inline my-2 my-lg-0" method="GET">
+    	<div class="input-group-prepend">
+      		<span class="input-group-text">@</span>
+    	</div>
+    	<input type="search" class="form-control mr-sm-2" placeholder="Book Name / Author Name" aria-label="Search" name="q" value="{{ request.GET.q }}" size="25">
+   		<button class="btn btn-outline-light" type="submit" value="Submit">Search</button>
+    </form>
+	<br><br>
+	<!-- RENDERING CARD DECK WITH BOOKS -->
+	<div class="row">
+	    <div class="card-deck sm">
+			<!-- CHECKING IF BOOKS ARE PRESENT -->
+		{% if books %}
+		<!-- LOOPING THROUGH BOOKS -->
+		{% for book in books %}
+		<div class="col">
+			<div class="card text-center md">
+				<div class="card-block">
+					<h4 class="card-title">{{ book.name }}</h4>
+						<p class="card-text">
+							Genre :{{ book.genre }}
+						</p>
+						<p class="card-text">
+							Rating :{% ratings book %}<br>
+						</p>
+						<p class="card-text">
+							Author :<a class="mr-6" href="{% url 'author-book' book.author %}">{{ book.author}}</a>
+						</p>
+						<p class="card-text">
+								{{ book.date_added|date:"F d, Y" }}				
+						</p>
+						<p class="card-text">
+							<a href="{% url 'favorite' book.id %}"><i class="fas fa-bookmark"></i></a>		
+						</p>
+				</div>
+				<div class="card-footer">
+					<a href="{% url 'book-detail' book.id %}"><i class="fas fa-info-circle" style="color:white;" title="remove"></i></a>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	{%else %}
+	<h1>Add books to see favorite books</h1>
+	{% endif %}
+</div>
+</div>
+<!-- Pagination -->
+<div class="pagination ">
+	<span class="step-links">
+		{% if books.has_previous %}
+			<a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+		<a class="btn btn-outline-info mb-4" href="?{{ page_request_var }}={{ books.previous_page_number }}&q={{ request.GET.q }}">Previous </a>
+		{% endif %}
+		<span class="current">
+			 <p class="btn btn-info mb-4">{{ books.number }} </p>
+		</span>
+		{% if books.has_next %}
+		<a class="btn btn-outline-info mb-4" href="?{{ page_request_var }}={{ books.next_page_number }}&q={{ request.GET.q }}"> Next </a>
+		<a class="btn btn-outline-info mb-4" href="?{{ page_request_var }}={{ books.paginator.num_pages }}">Last</a>
+		{% endif %}
+	</span>
+</div>
+{% endblock content %}
