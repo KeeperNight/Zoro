@@ -1,0 +1,14 @@
+{% extends 'user/base.html' %}
+{% block content %}
+<h2>You have been logged out successfully</h2>
+    <div class="content-section">
+        <div class="border-top pt-3">
+            <small class="text-muted">
+               <a class="ml-2" href="{% url 'login' %}">Log In Again</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}
+{% block svg %}
+        
+{% endblock svg %}
