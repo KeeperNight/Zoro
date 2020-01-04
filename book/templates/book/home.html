@@ -1,8 +1,10 @@
 {% extends 'book/book_base.html' %}
 {% load crispy_forms_tags %}
 {% load ratings %}
+
 {% block content %}
 <br><br>
+	<h5>{{message}} {{collection_name}}</h5>
 	<form class="form-inline my-2 my-lg-0" method="GET">
     	<div class="input-group-prepend">
       		<span class="input-group-text">@</span>
@@ -15,37 +17,38 @@
 		<div class="col">
 			<div class="card text-center md">
 				<div class="card-block">
-						<img class="rounded" src="{{ book.image.url }}" alt="{{book.name }}cover page" height="150px" width=150px>
+						<img class="rounded book" src="{{ book.image.url }}" alt="{{book.name }}cover page" height="150px" width=150px>
 						<h4 class="card-title">{{ book.name }}</h4>
 							<p class="card-text">
-								Genre :{% for gen in book.genre.all %}
-												<a class="mr-6" href="{% url 'genre-book' gen %}"><span class="badge badge-warning">{{gen}}</span></a>
-										{% endfor %}<br>
-							</p>
-							<p class="card-text">
-								Author :
-								{% for auth in book.author.all %}
-									<a class="mr-6" href="{% url 'author-book' auth %}"><span class="badge badge-info">{{auth}}</span></a> |
-								{% endfor %}<br>	
-							</p>
-							<p class="card-text">
-								<i>{% ratings book %}</i>
+								<i>{% ratings book %}</i><br>
 							</p>
 							<p class="card-text">
 								{% for fav in user.favorite.all %}
 									{% ifequal fav.name book.name%}
-										<a href="{% url 'favorite' book.id %}" style="color: red;;"><i class="fas fa-bookmark"></i></a> |
+										<a href="{% url 'favorite' book.id %}" style="color: red;"><i class="fas fa-bookmark"></i></a> |
 									{% endifequal %}
 								{% endfor %}
-								<a href="{% url 'book-detail' book.id %}"><i class="fas fa-info-circle" style="color:rgb(51, 51, 51);"></i></a>
+								<a href="{% url 'book-detail' book.id %}"><i class="fas fa-info-circle" style="color:rgb(51, 51, 51);"></i></a>								
+							
 							</p>
-							<i class="card-text">
-								{{ book.date_added|date:"F d, Y" }}				
-							</i>
-				</div>
+							<button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false;">
+								save
+							</button><br>
+							<div class="dropdown-menu"">
+								<p style="background-color: black;color:white; border-radius: 3px; text-align: center;">Collections</p>
+								{% for collection in collections %}
+									<a class="dropdown-item" href="{% url 'add_collection' collection.id  book.id %}"><b>{{collection}}</b></a>
+								{% endfor %}
+								<form class="form-inline my-2 my-lg-0" method="GET" class="dropdown-item">
+									<input type="text" class="form-control mr-sm-2" placeholder="New Collection" aria-label="Create" name="coll" size="15">
+									<button class="btn btn-outline-dark" type="submit" value="Submit">&#10003</button>
+								</form>
+							</div>
+					</div>
 			</div>
 		</div>
 	{% endfor %}
+	<script>$('#myModal').modal(focus)</script>
 </div>
 <!-- Pagination -->
 <div class="pagination ">

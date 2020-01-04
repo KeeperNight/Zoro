@@ -1,35 +1,71 @@
-{% extends "book/book_base.html" %}
+{% extends "book/book_view.html" %}
 {% load ratings %}
-{% block content %}
-<div class="row">
-  <h1 style="font-size:3em">About {{ book.name }}</h1>
-</div>
-<div class="row  text-center">
-  <div class="col-md-4">
-    <img src="{{book.image.url}}" alt="">
-  </div>
-  <div class="col-md-8" style="padding-left:20vh;">
-    <h4 class="card-title">{{ book.name }}</h4>
-    <i>{% ratings book %}</i>
-      <p class="card-text">
-        Genre :{% for gen in book.genre.all %}
+{% load threadedcomments_tags %}
+      <!-- Image -->
+      {% block image %}
+      <img src="{{book.image.url}}" alt="">
+      {% endblock image %}
+      <!--Name  -->
+      {% block name %}
+         <h1 class="card-title">{{ book.name }}</h1>
+         <h6>Tags</h6>
+         {% for tag in book.tags.all %}
+            {{tag}}
+         {% endfor %}
+      {% endblock name %}
+      <!-- Rating  -->
+      {% block rating %}
+      <h3>Ratings</h3>
+      {% ratings book %}
+      <br><a href="{% url 'favorite' book.id %}"><i class="far fa-bookmark"></i></a> 
+      | <a href="{% url 'book-update' book.id %}"><i class="far fa-edit"></i></a>
+      {% endblock rating %}
+      <!-- Genre -->
+      {% block genre %}
+      <h3>Genre</h3>
+        {% for gen in book.genre.all %}
                 <a class="mr-6" href="{% url 'genre-book' gen %}"><span class="badge badge-warning">{{gen}}</span></a>
-            {% endfor %}<br>
-        Author :
+        {% endfor %}<br>
+      {% endblock genre %}
+    <!-- Author -->
+      {% block author %}
+        <h3>Author(s)</h3>
         {% for auth in book.author.all %}
           <a class="mr-6" href="{% url 'author-book' auth %}" ><span class="badge badge-info" >{{auth}}</span></a> |
         {% endfor %}<br>
-        
-        {% for fav in user.favorite.all %}
-          {% ifequal fav.name book.name%}
-            <a href="{% url 'favorite' book.id %}" style="color: red;;"><i class="fas fa-bookmark"></i></a> |
-          {% endifequal %}
-        {% endfor %}
-        <a href="{% url 'book-detail' book.id %}"><i class="fas fa-info-circle" style="color:rgb(51, 51, 51);"></i></a>
-        | <a href="{% url 'book-update' book.id %}"><i class="far fa-edit" style="color:red;" ></i></a>
-      </p>
-      {{ book.date_added|date:"F d, Y" }}
-  </div>
-</div>
-<hr>
-{% endblock content %}
+      {% endblock author %}
+    <!-- Icon -->
+      {% block icon %}
+      {% endblock icon %}
+      <!-- Comment -->
+      {% block comment %}
+      <h3 class="mb-4 font-weight-light">Comments</h3>
+      {% get_comment_list for book as comment_list %}
+      {% for comment in comment_list|fill_tree|annotate_tree %}
+        <div class="comments col-md-9" id="comments">
+            <!-- comment -->
+            <div class="comment mb-2 row">
+                <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
+                    <a href=""><img class="mx-auto rounded-circle img-fluid" src="{{ user.profile.image.url }}" alt="avatar"></a>
+                </div>
+                <div class="comment-content col-md-11 col-sm-10">
+                    <h6 class="small comment-meta">{{ comment.name }} -- {{ comment.submit_date }}</h6>
+                    <div class="comment-body">
+                        <p> {{ comment.comment|linebreaks }}
+                            <a href="" class="text-right small"><i class="ion-reply"></i> Reply</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      {% endfor %}
+      {% render_comment_form for book %}
+      {% endblock comment %}
+      <!-- Chpater -->
+      {% block chapter %}
+      <h4>Chapters</h4>
+      {% for chapter in book.chapters.all %}
+          <a class="mr-6" href="{% url 'chapter-detail' chapter.id %}" ><span class="badge badge-info" >{{chapter}}</span></a> |
+      {% endfor %}
+      
+      {% endblock chapter %}

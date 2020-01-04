@@ -1,0 +1,15 @@
+{% extends "book/book_base.html" %}
+{% load ratings %}
+{% load comments %}
+{% block content %}
+    <h4 class="card-title">{{ chapter.name }}</h4>
+      <p class="card-text">
+        {{ chapter.content|safe }}
+      </p>
+      <a href="{% url 'chapter-update' chapter.id %}"><i class="far fa-edit"></i></a>
+      {% render_comment_form for chapter %}
+      {% get_comment_list for chapter as comment_list %}
+      {% for comment in comment_list %}
+          {{comment}}
+      {% endfor %}
+{% endblock content %}

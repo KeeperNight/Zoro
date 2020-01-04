@@ -1,7 +1,14 @@
+.book{
+  height:20vh;
+}
+.col-4{
+  height: 40vh;
+  padding: 5px;
+}
 .card{
-    height:70vh;
-    width: 35vh;
-    font-size: 1vw;
+    height:60vh;
+    width: 30vh;
+    font-size: 2vh;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.4s;
     background-color: rgba(245, 245, 245, 0.2);
@@ -35,4 +42,22 @@
   position:relative;
   width: 50px;
   height: 50px;
+}
+
+.dropdown-menu {
+  max-height:400px;
+  max-width: 400px;
+  overflow:scroll;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1vh;
+  box-shadow: 0 4px 8px 0 rgba(240, 240, 240, 0.2);
+  transition: 0.2s;
+}
+.dropdown-menu:hover{
+  position: relative;
+  box-shadow: 0 10px 20px 0 rgba(0,0,0,0.5);  
+}
+
+.dropdown-item{
+  margin:1vh;
 }

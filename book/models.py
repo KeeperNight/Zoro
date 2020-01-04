@@ -3,10 +3,15 @@ from django.urls import reverse
 from author.models import Author
 from django.contrib.auth.models import User
 from PIL import Image
+from datetime import date
+from django.core.files.storage import FileSystemStorage
+from .validators import validate_file_extension
+from ckeditor_uploader.fields import RichTextUploadingField
+from taggit.managers import TaggableManager
 
 
 class Genre(models.Model):
-    genre                 =           models.CharField(max_length=30,default="not set")
+    genre                       =           models.CharField(max_length=30,default="not set")
     def __str__(self):
         return self.genre
 
@@ -19,13 +24,15 @@ class Book(models.Model):
     published                   =           models.CharField(max_length=2, choices=PUBLISHED)
     author                      =           models.ManyToManyField(Author, related_name="book_author")
     book_creator                =           models.ForeignKey(User, on_delete=models.CASCADE)
-    date_added                  =           models.DateField()
+    date_added                  =           models.DateField(("Date"), auto_now_add=True)
     pages                       =           models.PositiveIntegerField(default=0)
     favorite                    =           models.ManyToManyField(User, related_name="favorite")
     genre                       =           models.ManyToManyField(Genre, related_name="book_genre")
-    read                        =           models.ManyToManyField(User, related_name="book_read")
-    isbn                        =           models.IntegerField(null=True)
-    published_date              =           models.DateField()
+    isbn13                      =           models.IntegerField(null=True)
+    published_date              =           models.DateField(unique=False)
+    start_date                  =           models.DateField()
+    end_date                    =           models.DateField()
+    tags                        =           TaggableManager()
 
     def __str__(self):
         return self.name
@@ -42,8 +49,14 @@ class Book(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
-class Comment(models.Model):
-    user                        =           models.ForeignKey(User,on_delete=models.CASCADE)
-    book                        =           models.ForeignKey(Book,on_delete=models.CASCADE)
-    STATUS                      =           (('C','Completed'),('R','Reading...'),('CC','Yet to complete'),('NS','Not Started'))
-    status                      =           models.CharField(choices=STATUS,max_length=3)
+
+class Chapter(models.Model):
+    name                        =           models.CharField(max_length=40)
+    content                     =           RichTextUploadingField()
+    book                        =           models.ForeignKey(Book, on_delete=models.CASCADE,related_name="chapters")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('home')

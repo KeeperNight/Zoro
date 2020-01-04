@@ -1,0 +1,37 @@
+{% extends 'book/book_base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="row justify-content-start">
+      <div class="col-4">
+        {% block image %}
+        {% endblock image %}
+      </div>
+      <div class="col-4">
+        {% block name %}
+        {% endblock name %}
+      </div>
+      <div class="col-4">
+        {% block rating %}
+        {% endblock rating %}
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-4">
+        {% block author %}
+        {% endblock author %}
+      </div>
+      <div class="col-4">
+        {% block genre %}
+        {% endblock genre %}
+      </div>
+      <div class="col-4">
+        {% block chapter %}
+        {% endblock chapter %}
+      </div>
+    </div>
+    <div class="row">
+    <div class="col">
+      {% block comment %}
+      {% endblock comment %}
+    </div></div>
+{% endblock content %}
