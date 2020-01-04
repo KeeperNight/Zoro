@@ -3,3 +3,5 @@ from .models import *
 
 
 admin.site.register(Profile)
+admin.site.register(Collection)
+admin.site.register(Status)

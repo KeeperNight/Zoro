@@ -1,11 +1,11 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .forms import UserRegistrationForm,UserUpdateForm,ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from book.models import Book
-from django.views.generic import ListView
 from django.db.models import Q
+from .models import Collection
 
 
 def register(request):
@@ -45,7 +45,7 @@ def profile(request):
     return render(request,'user/profile.html',context)
 
 def logout(request):
-    return render(request,'user/logout.html')
+    return render(request,'user/main.html')
 
 def home(request):
     return render(request,'user/main.html')

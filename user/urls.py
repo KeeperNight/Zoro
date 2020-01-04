@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from django.contrib.auth import views as auth_views
 from . import views
 from django.conf.urls.static import static
@@ -11,6 +11,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='user/login.html'), name='login'),
     path('register/', views.register, name='register'),
     path('logout/', auth_views.LogoutView.as_view(template_name='user/logout.html'), name='logout'),
+    path('messages/', include('postman.urls', namespace='postman'), name='messages'),
     path('password-reset/',
     	auth_views.PasswordResetView.as_view(
              template_name='user/password_reset.html'

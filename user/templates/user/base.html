@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +10,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="icon" href="media/default.png">
+    <script src="https://kit.fontawesome.com/2f18b7f943.js" crossorigin="anonymous"></script>
   {% if title%}
   <title>BooKeeper - {{  title  }}</title>
   {%else%}
@@ -32,27 +32,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarToggle">
           <div class="navbar-nav mr-auto">
-            <a class="nav-item nav-link" href="{% url 'main' %}">Home</a>
-            <a class="nav-item nav-link" href="{% url 'home' %}">Books</a>
-            <a class="nav-item nav-link" href="{% url 'blog-home' %}">Blog</a>
+            <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fas fa-book-open"></i></a>
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i class="fas fa-blog"></i></a>
             <a class="nav-item nav-link" href="{% url 'genre' %}">Genre</a>
 
           </div>
           <!-- Navbar Right Side -->
           <div class="navbar-nav">
             {% if request.user.is_authenticated %}
-            <div class="btn-group">
-              <a class="nav-item nav-link" href="{% url 'profile' %}" style="font-size: 16px;"><img src="{{user.profile.image.url}}" alt="" height="30px" width="30px" class="mr-2 rounded-circle">{{request.user.username}}</a>
-          <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="sr-only">Toggle Dropdown</span>
-          </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'profile' %}" style="font-size: 16px;">Profile</a>
-              <a class="dropdown-item" href="{% url 'favorites' %}">Favourites</a>
-              <a class="dropdown-item" href="{% url 'home' %}">Reads</a>
-              </div>
-        </div>
-            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+            <a class="nav-item nav-link" href="/messages" ><i class="fas fa-envelope"></i></a>
+            <a class="nav-item nav-link" href="{% url 'profile' %}"><i class="fas fa-user-circle"></i></a>
+            <a class="nav-item nav-link" href="{% url 'favorites' %}"><i class="far fa-star"></i></a>
+            <a class="nav-item nav-link" href="{% url 'collection' %}"><i class="fas fa-bookmark"></i></a>
+            <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fab fa-readme"></i></a>
+            <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></a>
+         </div>
             {% else %}
             <a class="nav-item nav-link" href="{% url 'about' %}"> About </a>
             <a class="nav-item nav-link" href="{% url 'login' %}"> LogIn </a>
@@ -75,6 +69,8 @@
           <div class = "alert alert-{{ message.tags }}">{{ message }}</div>
         {% endfor %}
       {% endif %}
+      {% block  postman_menu %}
+        {% endblock %}
         {% block content %}
         {% endblock content %}
       </div>
