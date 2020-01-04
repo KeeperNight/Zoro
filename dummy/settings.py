@@ -44,6 +44,13 @@ INSTALLED_APPS = [
     'star_ratings',
     'blog',
     'django_cleanup.apps.CleanupConfig',
+    'postman',
+    'django.contrib.sites',
+    'ckeditor',
+    'ckeditor_uploader',
+    'threadedcomments',
+    'django_comments',
+    'taggit',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +133,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -142,3 +150,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER='nagavarapradeepyendluri@gmail.com'
 EMAIL_HOST_PASSWORD='N@gamani1999'
 TEMPLATE_CONTEXT_PROCESSORS='django.core.context_processors.request'
+POSTMAN_AUTO_MODERATE_AS =True
+SITE_ID=1
+CKEDITOR_UPLOAD_PATH = "uploads/"
+COMMENTS_APP = 'threadedcomments'
+TAGGIT_CASE_INSENSITIVE = True
