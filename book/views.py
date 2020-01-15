@@ -31,7 +31,7 @@ def home(request):
             Q(author__name__icontains=query)|
             Q(genre__genre__icontains=query)
             ).distinct()
-    paginator =Paginator(query_list,10)
+    paginator =Paginator(query_list,12)
     page_request_var="page"
     page=request.GET.get(page_request_var)
     try:
@@ -139,7 +139,7 @@ class GenreBookListView(ListView):
         print(genre)
         return Book.objects.filter(genre=genre)
 
-@login_required 
+@login_required
 def favorite(request):
     user = request.user
     books = user.favorite.all()
@@ -182,7 +182,7 @@ def collection(request):
     }
     return render(request,'book/collection.html',context)
 
-@login_required 
+@login_required
 def books_in_collection(request,collection_id):
     coll=get_object_or_404(Collection,id=collection_id)
     collections=Collection.objects.filter(user=request.user.id)
@@ -220,13 +220,9 @@ def books_in_collection(request,collection_id):
 
 @login_required
 def add_status(request,book_id,stat_id):
-    print('started collection writing to db')
     print(book_id,stat_id)
     book=get_object_or_404(Book,id=book_id)
     stat=get_object_or_404(Status,id=stat_id)
-    print('checking cond')
-    print(collection)
-    print(book)
     if stat.book.get(id=book.id).exists():
         print('book removal started')
         stat.book.remove(book)

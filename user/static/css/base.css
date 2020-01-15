@@ -11,6 +11,13 @@
 
 }
 
+.bg{
+    background-color:#E0E5EC;
+}
+.top{
+    background-image: linear-gradient(to top left,rgb(2, 168, 146),rgb(0, 143, 199));
+}
+
 .media{
     font-size: 1vw;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

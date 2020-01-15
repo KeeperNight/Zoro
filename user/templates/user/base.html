@@ -9,23 +9,26 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="icon" href="media/default.png">
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
+    <link rel="stylesheet" href="{% static 'css/favorite.css' %}">
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+    <link rel="icon" href="media/default.jpg">
     <script src="https://kit.fontawesome.com/2f18b7f943.js" crossorigin="anonymous"></script>
   {% if title%}
-  <title>BooKeeper - {{  title  }}</title>
+  <title>Zoro - {{  title  }}</title>
   {%else%}
-  <title>BooKeeper</title>
+  <title>Zoro</title>
   {%endif%}
 </head>
 
-<body>
+<body class="bg">
   <header class="site-header">
     <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="{%static 'icon.ico'%}" alt="Logo" style="width:40px;">
+        <a class="navbar-brand" href="/">
+          <img src="media/logo.svg" alt="Zoro" style="width:40px;">
         </a>
-        <a class="navbar-brand mr-4" style="font-size:25px;"href="/">BooKeeper</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
           aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -57,25 +60,17 @@
       </div>
     </nav>
   </header>
-  <main role="main" class="container">
-    <div class="row">
-      <div class="col-md-4">
-            {% block svg %}
-            {% endblock svg %}
-      </div>
-      <div class="col-md-8">
-      {% if messages %}
-        {% for message in messages %}
-          <div class = "alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-      {% block  postman_menu %}
-        {% endblock %}
-        {% block content %}
-        {% endblock content %}
-      </div>
-    </div>
-  </main>
+  <main role="main" class="container" >
+    {% if messages %}
+      {% for message in messages %}
+        <div class = "alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    {% block  postman_menu %}
+    {% endblock %}
+      {% block content %}
+      {% endblock content %}
+</main>
   <br><br><br>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -142,14 +137,14 @@
             </ul>
           </div>
           </hr>
-        </div>	
+        </div>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
             <p><u><a href="#">BooKeeper</a></u></p>
             <p class="h6">&copy All right Reversed.<a class="text-green ml-2" href="#" target="_blank">BooKeeper</a></p>
           </div>
           </hr>
-        </div>	
+        </div>
       </div>
     </section>
 </body>

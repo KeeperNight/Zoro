@@ -1,4 +1,4 @@
-{% extends "book/book_base.html" %}
+{% extends "user/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
 <h1>Books by {{ view.kwargs.username }} -{{ page_obj.paginator.count }}</h1>
