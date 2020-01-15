@@ -1,0 +1,27 @@
+<div class="row  text-center">
+					<div class="col-md-4">
+						<img src="{{book.image.url}}" alt="">
+					</div>
+					<div class="col-md-8" style="padding-left:20vh;">
+						<h4 class="card-title">{{ book.name }}</h4>
+						<i>{% ratings book %}</i>
+							<p class="card-text">
+								Genre :{% for gen in book.genre.all %}
+												<a class="mr-6" href="{% url 'genre-book' gen %}"><span class="badge badge-warning">{{gen}}</span></a>
+										{% endfor %}<br>
+								Author :
+								{% for auth in book.author.all %}
+									<a class="mr-6" href="{% url 'author-book' auth %}" ><span class="badge badge-info" >{{auth}}</span></a> |
+								{% endfor %}<br>
+								
+								{% for fav in user.favorite.all %}
+									{% ifequal fav.name book.name%}
+										<a href="{% url 'favorite' book.id %}" style="color: red;;"><i class="fas fa-bookmark"></i></a> |
+									{% endifequal %}
+								{% endfor %}
+								<a href="{% url 'book-detail' book.id %}"><i class="fas fa-info-circle" style="color:rgb(51, 51, 51);"></i></a>
+							</p>
+							{{ book.date_added|date:"F d, Y" }}
+					</div>
+			</div>
+			<hr>
