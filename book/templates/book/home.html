@@ -1,8 +1,14 @@
 {% extends 'user/base.html' %}
 {% load crispy_forms_tags %}
 {% load ratings %}
-
 {% block content %}
+<nav id="subnav" class="navbar navbar-expand-md ">
+	<div class="navbar-nav mr-auto">
+		<a class="nav-item nav-link" href="{% url 'book-create' %}">Start Book</a>
+		<a class="nav-item nav-link" href="{% url 'chapter-create' %}">Release Chapter</a>
+		<a class="nav-item nav-link" href="{% url 'genre' %}">Genre</a>
+	</div>
+</nav>
 <br><br>
 	<h5>{{message}} {{collection_name}}</h5>
 	<form class="form-inline my-2 my-lg-0" method="GET">
@@ -23,18 +29,19 @@
 								<i>{% ratings book %}</i><br>
 							</p>
 							<p class="card-text">
-								{% for fav in user.favorite.all %}
-									{% ifequal fav.name book.name%}
-										<a href="{% url 'favorite' book.id %}" style="color: red;"><i class="fas fa-bookmark"></i></a> |
-									{% endifequal %}
+								{% for b in user.favorite.all %}
+									{% if b.name == book.name %}
+											<a href="{% url 'favorite' book.id %}" style="color: red;"><i class="fas fa-bookmark"></i></a> |
+									{% else %}
+											<a href="{% url 'favorite' book.id	 %}" style="color: blue;"><i class="fas fa-bookmark"></i></a> |	
+									{% endif %}
 								{% endfor %}
 								<a href="{% url 'book-detail' book.id %}"><i class="fas fa-info-circle" style="color:rgb(51, 51, 51);"></i></a>
-
 							</p>
 							<button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false;">
 								save
 							</button><br>
-							<div class="dropdown-menu"">
+							<div class="dropdown-menu">
 								<p style="background-color: black;color:white; border-radius: 3px; text-align: center;">Collections</p>
 								{% for collection in collections %}
 									<a class="dropdown-item" href="{% url 'add_collection' collection.id  book.id %}"><b>{{collection}}</b></a>
@@ -44,6 +51,7 @@
 									<button class="btn btn-outline-dark" type="submit" value="Submit">&#10003</button>
 								</form>
 							</div>
+
 					</div>
 			</div>
 		</div>

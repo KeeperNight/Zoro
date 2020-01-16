@@ -151,5 +151,4 @@ TEMPLATE_CONTEXT_PROCESSORS='django.core.context_processors.request'
 POSTMAN_AUTO_MODERATE_AS =True
 SITE_ID=1
 CKEDITOR_UPLOAD_PATH = "uploads/"
-COMMENTS_APP = 'threadedcomments'
 TAGGIT_CASE_INSENSITIVE = True

@@ -30,9 +30,10 @@ class Book(models.Model):
     genre                       =           models.ManyToManyField(Genre, related_name="book_genre")
     isbn13                      =           models.IntegerField(null=True)
     published_date              =           models.DateField(unique=False)
-    start_date                  =           models.DateField()
-    end_date                    =           models.DateField()
+    start_date                  =           models.DateField(null=True)
+    end_date                    =           models.DateField(null=True)
     tags                        =           TaggableManager()
+    prog                        =           models.ManyToManyField(User,related_name='pro',through='Progress')
 
     def __str__(self):
         return self.name
@@ -60,3 +61,9 @@ class Chapter(models.Model):
 
     def get_absolute_url(self):
         return reverse('home')
+
+class Progress(models.Model):
+    STATUS = (('Read','Read'),('To-be-Read','To-be-Read'),('Now Reading','Now Reading'))
+    prog = models.CharField(max_length=32,choices=STATUS)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    book = models.ForeignKey(Book,on_delete=models.CASCADE)
