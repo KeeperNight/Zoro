@@ -37,6 +37,8 @@
           <div class="navbar-nav mr-auto">
             <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fas fa-book-open"></i></a>
             <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i class="fas fa-blog"></i></a>
+            <a class="nav-item nav-link" href="{% url 'book-create' %}">Start Book</a>
+            <a class="nav-item nav-link" href="{% url 'chapter-create' %}">Release Chapter</a>
             <a class="nav-item nav-link" href="{% url 'genre' %}">Genre</a>
 
           </div>
@@ -90,7 +92,7 @@
           <div class="col-xs-12 col-sm-3 col-md-3">
             <h5>Reader</h5>
             <ul class="list-unstyled quick-links">
-              <li><a href="{% url 'main' %}"><i class="fa fa-angle-double-right"></i>Home</a></li>
+              <li><a href="{% url 'home' %}"><i class="fa fa-angle-double-right"></i>Home</a></li>
               <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
               <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Books</a></li>
               <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>

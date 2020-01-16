@@ -1,6 +1,5 @@
-{% extends "user/view.html" %}
+{% extends "user/base.html" %}
 {% load ratings %}
-{% load threadedcomments_tags %}
       <!-- Image -->
       {% block image %}
       <img src="{{book.image.url}}" alt="">
@@ -38,29 +37,7 @@
       {% block icon %}
       {% endblock icon %}
       <!-- Comment -->
-      {% block comment %}
-      <h3 class="mb-4 font-weight-light">Comments</h3>
-      {% get_comment_list for book as comment_list %}
-      {% for comment in comment_list|fill_tree|annotate_tree %}
-        <div class="comments col-md-9" id="comments">
-            <!-- comment -->
-            <div class="comment mb-2 row">
-                <div class="comment-avatar col-md-1 col-sm-2 text-center pr-1">
-                    <a href=""><img class="mx-auto rounded-circle img-fluid" src="{{ user.profile.image.url }}" alt="avatar"></a>
-                </div>
-                <div class="comment-content col-md-11 col-sm-10">
-                    <h6 class="small comment-meta">{{ comment.name }} -- {{ comment.submit_date }}</h6>
-                    <div class="comment-body">
-                        <p> {{ comment.comment|linebreaks }}
-                            <a href="" class="text-right small"><i class="ion-reply"></i> Reply</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-      {% endfor %}
-      {% render_comment_form for book %}
-      {% endblock comment %}
+     
       <!-- Chpater -->
       {% block chapter %}
       <h4>Chapters</h4>

@@ -231,3 +231,4 @@ def add_status(request,book_id,stat_id):
         print('book writing into collection')
         stat.book.add(book)
     return HttpResponseRedirect(book.get_absolute_url())
+
