@@ -81,7 +81,7 @@ class ChapterDetailView(DetailView):
     # context = {'book': book,"is_favorite":is_favorite}
     # return render(request, "book/book_detail.html", context=context)
 
-
+@login_required
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
     fields = ['name', 'genre', 'published_date', 'image','author']
@@ -97,7 +97,7 @@ class ChapterCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
-
+@login_required
 class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
     fields = ['name', 'genre','image','author','published_added']
@@ -107,7 +107,7 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
         form.save()
         return super().form_valid(form)
 
-
+@login_required
 class ChapterUpdateView(LoginRequiredMixin, UpdateView):
     model = Chapter
     fields = ['book', 'name', 'content']
