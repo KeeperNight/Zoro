@@ -1,5 +1,8 @@
 {% extends "book/book_view.html" %}
 {% load ratings %}
+{% load comments %}
+{% load comments_xtd %}
+
       <!-- Image -->
       {% block image %}
       <img src="{{book.image.url}}" alt="">
@@ -42,5 +45,21 @@
       {% for chapter in book.chapters.all %}
           <a class="mr-6" href="{% url 'chapter-detail' chapter.id %}" ><span class="badge badge-info" >{{chapter}}</span></a> |
       {% endfor %}
-      
       {% endblock chapter %}
+      <!-- Comment Form -->
+      {% block commentform %}
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-center pb-3">Post your comment</h4>
+              {% render_comment_form for book %}
+          </div>
+        </div>
+      {% endblock commentform %}
+
+      <!-- Comments -->
+      {% block comments %}
+      <div class="comments">
+        <h2 class="text-center">Comments</h2>
+        {% render_xtdcomment_tree for book allow_flagging allow_feedback show_feedback  %}
+      </div>
+      {% endblock comments %}

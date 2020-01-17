@@ -68,20 +68,11 @@ def genre(request):
 class BookDetailView(DetailView):
     model = Book
 
+
 class ChapterDetailView(DetailView):
     model = Chapter
 
-# def book(request,pk):
-    # user = request.user
-    # book = User.objects.filter(id=pk)
-    # print(book)
-    # is_favorite = False
-    # if book:
-    #     is_favorite=True
-    # context = {'book': book,"is_favorite":is_favorite}
-    # return render(request, "book/book_detail.html", context=context)
 
-@login_required
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
     fields = ['name', 'genre', 'published_date', 'image','author']
@@ -97,7 +88,7 @@ class ChapterCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         return super().form_valid(form)
 
-@login_required
+
 class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
     fields = ['name', 'genre','image','author','published_added']
@@ -107,7 +98,7 @@ class BookUpdateView(LoginRequiredMixin, UpdateView):
         form.save()
         return super().form_valid(form)
 
-@login_required
+
 class ChapterUpdateView(LoginRequiredMixin, UpdateView):
     model = Chapter
     fields = ['book', 'name', 'content']
@@ -136,7 +127,6 @@ class GenreBookListView(ListView):
 
     def get_queryset(self):
         genre = get_object_or_404(Genre, genre=self.kwargs.get('genrename'))
-        print(genre)
         return Book.objects.filter(genre=genre)
 
 @login_required
@@ -158,18 +148,11 @@ def add_favorite(request,book_id):
 
 @login_required
 def add_collection(request,book_id,collection_id):
-    print('started collection writing to db')
-    print(book_id,collection_id)
     book=get_object_or_404(Book,id=book_id)
     collection=get_object_or_404(Collection,id=collection_id)
-    print('checking cond')
-    print(collection)
     if collection.books.filter(id=book.id).exists():
-        print('book removal started')
         collection.books.remove(book)
-        print('book removed')
     else:
-        print('book writing into collection')
         collection.books.add(book)
     return HttpResponseRedirect(book.get_absolute_url())
 
@@ -220,15 +203,10 @@ def books_in_collection(request,collection_id):
 
 @login_required
 def add_status(request,book_id,stat_id):
-    print(book_id,stat_id)
     book=get_object_or_404(Book,id=book_id)
     stat=get_object_or_404(Status,id=stat_id)
     if stat.book.get(id=book.id).exists():
-        print('book removal started')
         stat.book.remove(book)
-        print('book removed')
     else:
-        print('book writing into collection')
         stat.book.add(book)
     return HttpResponseRedirect(book.get_absolute_url())
-

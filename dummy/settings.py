@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'taggit',
+    'django_comments_xtd',
+    'django_comments',
 ]
 
 MIDDLEWARE = [
@@ -127,28 +129,55 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
+#   DJANGO SETTINGS MANUAL
 
+
+#STATIC SETTINGS
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static/'
 
+#MEDIA
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+#CRISPY FORMS SETTINGS
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+#REDIRECT SETTINGS
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'main'
 
+#DJANGO MAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER='nagavarapradeepyendluri@gmail.com'
 EMAIL_HOST_PASSWORD='N@gamani1999'
+DEFAULT_FROM_EMAIL = "Helpdesk <helpdesk@zoro>"
+
+
 TEMPLATE_CONTEXT_PROCESSORS='django.core.context_processors.request'
+
+#POSTMAN MESSAGES SETTINGS
 POSTMAN_AUTO_MODERATE_AS =True
-SITE_ID=1
+
+#CKEDITOR APP SETTINGS
 CKEDITOR_UPLOAD_PATH = "uploads/"
+
+#TAGGIT APP
 TAGGIT_CASE_INSENSITIVE = True
+
+#COMMENTS SETTINGS
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 2
+COMMENTS_XTD_CONFIRM_EMAIL = True
+COMMENTS_XTD_APP_MODEL_OPTIONS = {
+    'book.book': {
+        'allow_flagging': True,
+        'allow_feedback': True,
+        'show_feedback': True,
+    }
+}
+
+SITE_ID = 2

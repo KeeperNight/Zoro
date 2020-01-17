@@ -36,31 +36,3 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
-
-class Comment(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    body = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
-    book = models.ForeignKey(Book,on_delete=models.CASCADE,related_name='comment')
-
-    class Meta:
-        ordering = ['created_on']
-
-    def __str__(self):
-        return 'Comment {} by {}'.format(self.body,self.user)
-
-
-
-class ReplyComment(models.Model):
-    comment = models.ForeignKey(Comment,on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    body = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ['created_on']
-
-    def __str__(self):
-        return 'Comment {} by {}'.format(self.body)

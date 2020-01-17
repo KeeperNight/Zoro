@@ -1,15 +1,22 @@
 {% extends "user/base.html" %}
 {% load ratings %}
 {% load comments %}
+{% load comments_xtd %}
 {% block content %}
     <h4 class="card-title">{{ chapter.name }}</h4>
       <p class="card-text">
         {{ chapter.content|safe }}
       </p>
       <a href="{% url 'chapter-update' chapter.id %}"><i class="far fa-edit"></i></a>
-      {% render_comment_form for chapter %}
-      {% get_comment_list for chapter as comment_list %}
-      {% for comment in comment_list %}
-          {{comment}}
-      {% endfor %}
+      <h6>Add Comment</h6>
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title text-center pb-3">Post your comment</h4>
+            {% render_comment_form for chapter %}
+        </div>
+      </div>
+      <div class="comments">
+        <h5 class="text-center">Comments</h5>
+        {% render_xtdcomment_tree for chapter allow_flagging allow_feedback show_feedback  %}
+      </div>
 {% endblock content %}

@@ -22,5 +22,6 @@ urlpatterns = [
     path('<collection_id>/<book_id>/add_collection/',views.add_collection, name='add_collection'),
     path('<stat_id>/<book_id>/add_status/',views.add_status, name='add_status'),
     path('articles/comments/', include('django_comments.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')), 
+    path('comments/', include('django_comments_xtd.urls')),
 ]
