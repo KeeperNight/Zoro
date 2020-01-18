@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from book.models import Book
 from django.db.models import Q
 from .models import Collection
+from django.contrib.auth.models import User
+from friendship.models import Friend, Follow, Block
 
 
 def register(request):
@@ -53,26 +55,39 @@ def home(request):
 def about(request):
     return render(request,'user/about.html')
 
-def post_detail(request, slug):
-    template_name = 'post_detail.html'
-    post = get_object_or_404(Book, slug=slug)
-    comments = post.comments.filter(active=True)
-    new_comment = None
-    # Comment posted
-    if request.method == 'POST':
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
+def view_user_profile(request,user_id):
+    return render(request, 'user/profile.html')
 
-            # Create Comment object but don't save to database yet
-            new_comment = comment_form.save(commit=False)
-            # Assign the current post to the comment
-            new_comment.post = post
-            # Save the comment to the database
-            new_comment.save()
-    else:
-        comment_form = CommentForm()
+def friends(request):
+    all_friends = Friend.objects.friends(request.user)
+    return render(request,'user/friends.html',{'friends':friends})
 
-    return render(request, template_name, {'post': post,
-                                           'comments': comments,
-                                           'new_comment': new_comment,
-                                           'comment_form': comment_form})
+def unread_request(request):
+    requests = Friend.objects.unread_requests(user=request.user)
+    context={
+        'requests':requests
+    }
+    return render(request,'user/unread.html', context)
+
+def reject(request):
+    rejects = Friend.objects.rejected_requests(user=request.user)
+    context={
+        'rejects':rejects
+    }
+    return render(request,'user/reject.html', context)    
+
+def reject(request):
+    all_followers = Following.objects.followers(request.user)
+    context={
+        'all_followers':all_followers
+    }
+    return render(request,'user/followers.html', context) 
+
+def reject(request):
+    following = Following.objects.following(request.user)
+    context={
+        'following':following
+    }
+    return render(request,'user/following.html', context)     
+
+

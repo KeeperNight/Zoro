@@ -32,5 +32,6 @@ urlpatterns = [
              template_name='user/password_reset_complete.html'
          ),
          name='password_reset_complete'),
-    # path('update_progress/',views.update_progress,name='update_progress'),
+    path('friendship/', include('friendship.urls')),
+    path('friends/',views.friends, name="friend"),
 ]

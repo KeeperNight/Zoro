@@ -4,23 +4,27 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
 class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField()
+    email = forms.EmailField(widget=forms.TextInput(attrs={'size':15, 'maxlength':50}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'size':15, 'maxlength':20}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'size':15, 'maxlength':20}))
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
 
 
 class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
+    email = forms.EmailField(widget=forms.TextInput(attrs={'size':30, 'maxlength':50}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'size':20, 'maxlength':20}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'size':20, 'maxlength':20}))
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email']
 
 
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ['image', 'quote', 'address', 'city', 'country', 'zipcode', 'aboutme']
 

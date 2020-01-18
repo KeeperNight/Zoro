@@ -29,7 +29,7 @@ def home(request):
         query_list= query_list.filter(
             Q(name__icontains=query)|
             Q(author__name__icontains=query)|
-            Q(genre__genre__icontains=query)
+            Q(genre__genre__icontains=query)|
             ).distinct()
     paginator =Paginator(query_list,12)
     page_request_var="page"
@@ -197,7 +197,7 @@ def books_in_collection(request,collection_id):
         "collections":collections,
         'collection_name':coll.name,
         'collection_count':collection_count,
-        'message':'Search your collection '
+        'message':'Search your collection. . .'
     }
     return render(request, "book/home.html", context=context)
 
