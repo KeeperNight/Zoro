@@ -35,19 +35,37 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarToggle">
           <div class="navbar-nav mr-auto">
-            <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fas fa-book-open"></i></a>
-            <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i class="fas fa-blog"></i></a>
+            <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fas fa-book-open"></i> Books</a>
+            <a class="nav-item nav-link" onclick="openNav()"><i class="fas fa-quote-left"></i> Author</a>
+            <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i class="fas fa-blog"></i> Blog</a>
           </div>
           <!-- Navbar Right Side -->
           <div class="navbar-nav">
+            <form class="form-inline my-2 my-lg-0" method="GET">
+              <input type="search" class="form-control mr-sm-2 search" placeholder="Book Name / Author Name / Genre" aria-label="Search" name="q" value="{{ request.GET.q }}" size="31">
+               <button class="btn btn-outline-light search" type="submit" value="Submit">Search</button>
+            </form>
             {% if request.user.is_authenticated %}
-            <a class="nav-item nav-link" href="/messages" ><i class="fas fa-envelope"></i></a>
-            <a class="nav-item nav-link" href="{% url 'profile' %}"><i class="fas fa-user-circle"></i> {{request.user.username}}</a>
-            <a class="nav-item nav-link" href="{% url 'favorites' %}"><i class="far fa-star"></i></a>
-            <a class="nav-item nav-link" href="{% url 'collection' %}"><i class="fas fa-bookmark"></i></a>
-            <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fab fa-readme"></i></a>
-            <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></a>
-         </div>
+            <div class="btn-group">
+              <a class="nav-item nav-link" href="{% url 'profile' %}" style="font-size: 16px;">{{request.user.username}}</a>
+              <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+              <div class="dropdown-menu">
+                <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdownfriend" aria-haspopup="true" aria-expanded="false"></button>
+                <div class="dropdown dropdownfriend dropleft">
+                  <a class="nav-item nav-link" href="{% url 'friendship_view_friends' request.user.username %}" ><i class="fas fa-user-friends"></i> Friends</a>
+                  <a class="nav-item nav-link" href="{% url 'friendship_request_list' %}" ><i class="fas fa-user-friends"></i> Friend Requests</a>
+                  <a class="nav-item nav-link" href="{% url 'friendship_requests_rejected' %}" ><i class="fas fa-user-friends"></i> Rejected</a>
+                </div>
+                <a class="nav-item nav-link" href="/friendship" ><i class="fas fa-user-friends"></i> Friends</a>
+                <a class="nav-item nav-link" href="/messages" ><i class="fas fa-envelope icon"></i> Messages</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-item nav-link" href="{% url 'favorites' %}"><i class="far fa-star icon"></i> Favourites</a>
+                <a class="nav-item nav-link" href="{% url 'collection' %}"><i class="fas fa-bookmark icon"></i> Collections</a>
+                <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fab fa-readme icon"></i> Reads</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt icon"></i> Logout</a>
+              </div>
+          </div>
             {% else %}
             <a class="nav-item nav-link" href="{% url 'about' %}"> About </a>
             <a class="nav-item nav-link" href="{% url 'login' %}"> LogIn </a>
@@ -66,7 +84,6 @@
 		  <a class="nav-item nav-link" href="{% url 'chapter-create' %}">Release Chapter</a>
 		  <a class="nav-item nav-link" href="{% url 'genre' %}">Genre</a>
     </div>
-    <span class="nav-item nav-link" onclick="openNav()">Author</span>
     {% if messages %}
       {% for message in messages %}
         <div class = "alert alert-{{ message.tags }}">{{ message }}</div>

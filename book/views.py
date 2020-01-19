@@ -10,44 +10,14 @@ from django.http import HttpResponseRedirect
 # from user.models import Read
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from user.models import Collection,Status
+from hitcount.models import HitCount
+from hitcount.views import HitCountMixin
+from user.models import Collection
+
 
 def about_book(request):
     return render(request, 'book/book.html')
 
-def home(request):
-    query_list = Book.objects.all()
-    collections=Collection.objects.filter(user=request.user.id)
-    status = Status.objects.filter(user=request.user.id)
-    print(status)
-    print(collections)
-    query = request.GET.get("q")
-    new_coll = request.GET.get('coll')
-    if new_coll:
-        Collection.objects.create(name=new_coll,user_id=request.user.id)
-    if query:
-        query_list= query_list.filter(
-            Q(name__icontains=query)|
-            Q(author__name__icontains=query)|
-            Q(genre__genre__icontains=query)|
-            ).distinct()
-    paginator =Paginator(query_list,12)
-    page_request_var="page"
-    page=request.GET.get(page_request_var)
-    try:
-        queryset=paginator.get_page(page)
-    except PageNotAnInteger:
-        queryset=paginator.get_page(1)
-    except EmptyPage:
-        queryset=paginator.get_page(paginator.num_pages)
-    context={
-        "books":queryset,
-        "page_request_var":page_request_var,
-        "collections":collections,
-        "status":status
-    }
-    #returns home page in books
-    return render(request, 'book/home.html', context)
 
 #Genre function to retrieve genres
 def genre(request):
@@ -65,9 +35,13 @@ def genre(request):
 
 
 #Shows detail view of book
-class BookDetailView(DetailView):
-    model = Book
+def book_detail_view(request, book_id):
+    book = get_object_or_404(Book,id=book_id)
+    # first get the related HitCount object for your model object
+    hit_count = HitCount.objects.get_for_object(book)
+    hit_count_response = HitCountMixin.hit_count(request, hit_count)
 
+    return render(request, 'book/book_detail.html',{"book":book})
 
 class ChapterDetailView(DetailView):
     model = Chapter

@@ -1,3 +1,8 @@
+.bg{
+    color:white;
+    background-color: #111;
+}
+
 .site-header .navbar-nav .nav-link {
     color: white;   
 }
@@ -9,10 +14,6 @@
 .site-header .navbar-nav .nav-link.active {
     font-weight: 500;
 
-}
-
-.top{
-    background-image: linear-gradient(to top left,rgb(2, 168, 146),rgb(0, 143, 199));
 }
 
 
@@ -116,57 +117,51 @@ section .section-title {
   }
   
   /* The navigation menu links */
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
-  
-  /* When you mouse over the navigation links, change their color */
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
-  
-  /* Position and style the close button (top right corner) */
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
-  
-  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-  #main {
-    transition: margin-left .5s;
-    padding: 20px;
-  }
-  
-  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
 
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
 
   
 .card {
     border-radius: 12px;
-    box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
-    background-color: #FFFFFF;
-    color: #252422;
+    box-shadow: 0 6px 10px -4px rgb(0, 0, 0);
+    background-color: #111;
+    color: #bdbdbd;
     margin-bottom: 20px;
     position: relative;
-    border: 0 none;
-    -webkit-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
-    -moz-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
-    -o-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
-    -ms-transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
-    transition: transform 300ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 200ms ease;
-  }
+    padding:1vw;
+}
 
   input, select, textarea{
       border: 1px rgb(182, 182, 182) solid;
@@ -182,5 +177,8 @@ section .section-title {
       background-color: #252422;
       border:2px black solid;
       border-radius: 10px;
+      color:white;
+  }
+.icon{
       color:white;
   }

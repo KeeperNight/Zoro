@@ -1,13 +1,12 @@
 from django.urls import path,include
-from .views import BookCreateView, ChapterCreateView, BookDetailView, ChapterDetailView, BookUpdateView, ChapterUpdateView, AuthorBookListView, GenreBookListView
+from .views import BookCreateView, ChapterCreateView, ChapterDetailView, BookUpdateView, ChapterUpdateView, AuthorBookListView, GenreBookListView
 from . import views
 
 
 urlpatterns = [
-    path('',views.home, name="home"),
     path('author/<str:username>', AuthorBookListView.as_view(), name="author-book"),
     path('genre/<str:genrename>', GenreBookListView.as_view(), name="genre-book"),
-    path('<int:pk>/', BookDetailView.as_view(), name="book-detail"),
+    path('<book_id>/detail', views.book_detail_view, name="detail"),
     path('chapter/<int:pk>/', ChapterDetailView.as_view(), name="chapter-detail"),
     path('book/<int:pk>/update/', BookUpdateView.as_view(), name="book-update"),
     path('chapter/<int:pk>/update/', ChapterUpdateView.as_view(), name="chapter-update"),
@@ -24,4 +23,5 @@ urlpatterns = [
     path('articles/comments/', include('django_comments.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')), 
     path('comments/', include('django_comments_xtd.urls')),
+    path('hitcount/', include('hitcount.urls', namespace='hitcount')),
 ]

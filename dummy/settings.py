@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_comments_xtd',
     'django_comments',
     'friendship',
+    'hitcount',
 ]
 
 MIDDLEWARE = [
@@ -147,6 +148,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #REDIRECT SETTINGS
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'main'
+LOGOUT_REDIRECT_URL = 'main'
 
 #DJANGO MAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -157,8 +159,6 @@ EMAIL_HOST_USER='nagavarapradeepyendluri@gmail.com'
 EMAIL_HOST_PASSWORD='N@gamani1999'
 DEFAULT_FROM_EMAIL = "Helpdesk <helpdesk@zoro>"
 
-
-TEMPLATE_CONTEXT_PROCESSORS='django.core.context_processors.request'
 
 #POSTMAN MESSAGES SETTINGS
 POSTMAN_AUTO_MODERATE_AS =True
@@ -186,4 +186,9 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
     }
 }
 
-SITE_ID = 3
+#Reidrect site id for postman and comments app change it if you add new site
+SITE_ID = 1
+
+#Book View settings
+
+

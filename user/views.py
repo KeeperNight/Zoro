@@ -8,6 +8,69 @@ from django.db.models import Q
 from .models import Collection
 from django.contrib.auth.models import User
 from friendship.models import Friend, Follow, Block
+from book.models import Book
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
+#Home Page
+def home(request):
+    #Querying required data
+    query_list = Book.objects.all()
+    collections=Collection.objects.filter(user=request.user.id)
+
+    #Evaluating Qurey from FORM
+    query = request.GET.get("q")
+    new_coll = request.GET.get('coll')
+    #Checking if collection is new and creating it if it's new
+    if new_coll:
+        Collection.objects.create(name=new_coll,user_id=request.user.id)
+    user_list=[]
+    #Filtering out required data
+    if query:
+        query_list= query_list.filter(
+            Q(name__icontains=query)|
+            Q(author__name__icontains=query)|
+            Q(genre__genre__icontains=query)
+            ).distinct()
+        #Searching Users by their username, firstname and lastname
+        user_list = User.objects.filter(
+            Q(username__icontains = query)|
+            Q(first_name__icontains = query)|
+            Q(last_name__icontains=query)
+        ).distinct()
+
+    #Paginating books result
+    paginator =Paginator(query_list,10)
+    page_request_var="page"
+    page=request.GET.get(page_request_var)
+    try:
+        queryset=paginator.get_page(page)
+    except PageNotAnInteger:
+        queryset=paginator.get_page(1)
+    except EmptyPage:
+        queryset=paginator.get_page(paginator.num_pages)
+    
+    #Paginating users result
+    paginator_user =Paginator(user_list,5)
+    page_request_var="page"
+    page=request.GET.get(page_request_var)
+    #Packing result into users list
+    try:
+        users=paginator_user.get_page(page)
+    except PageNotAnInteger:
+        users=paginator_user.get_page(1)
+    except EmptyPage:
+        users=paginator_user.get_page(paginator_user.num_pages)
+
+    #Sending data to page
+    context={
+        "books":queryset,
+        "page_request_var":page_request_var,
+        "collections":collections,
+        "users":users,
+    }
+    #returns home page in books
+    return render(request, 'user/home.html', context)
 
 
 def register(request):
@@ -23,6 +86,9 @@ def register(request):
     return render(request,'user/registration.html',{'form':form})
 
 def login(request):
+    print("changing status")
+    request.user.profile.is_online = True
+    
     return render(request,'user/login.html',{'form':form})
 
 
@@ -47,47 +113,20 @@ def profile(request):
     return render(request,'user/profile.html',context)
 
 def logout(request):
+    print("changing status")
+    request.user.profile.is_online = False
+    request.user.profile.save()
     return render(request,'user/main.html')
 
-def home(request):
+def main(request):
     return render(request,'user/main.html')
 
 def about(request):
     return render(request,'user/about.html')
 
 def view_user_profile(request,user_id):
-    return render(request, 'user/profile.html')
+    return render(request, 'user/profile.html')    
 
 def friends(request):
-    all_friends = Friend.objects.friends(request.user)
-    return render(request,'user/friends.html',{'friends':friends})
-
-def unread_request(request):
-    requests = Friend.objects.unread_requests(user=request.user)
-    context={
-        'requests':requests
-    }
-    return render(request,'user/unread.html', context)
-
-def reject(request):
-    rejects = Friend.objects.rejected_requests(user=request.user)
-    context={
-        'rejects':rejects
-    }
-    return render(request,'user/reject.html', context)    
-
-def reject(request):
-    all_followers = Following.objects.followers(request.user)
-    context={
-        'all_followers':all_followers
-    }
-    return render(request,'user/followers.html', context) 
-
-def reject(request):
-    following = Following.objects.following(request.user)
-    context={
-        'following':following
-    }
-    return render(request,'user/following.html', context)     
-
+    return render(request, 'user/friends.html')
 
