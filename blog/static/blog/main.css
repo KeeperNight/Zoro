@@ -4,4 +4,12 @@ body{
   background-position: bottom;
   color: #333333;
 }
-
+article-content{
+  color:whitesmoke;
+}
+.fade {
+  color:whitesmoke;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}

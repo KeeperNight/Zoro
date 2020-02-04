@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/book.css' %}">
     <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
     <link rel="stylesheet" href="{% static 'css/paper-dashboard.css' %}">
+    <link href="{% static 'tellme/feedback.min.css' %}" rel="stylesheet">
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
     <link rel="icon" href="media/default.jpg">
     <script src="https://kit.fontawesome.com/2f18b7f943.js" crossorigin="anonymous"></script>
@@ -24,12 +24,12 @@
 
 <body class="bg">
   <header class="site-header">
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark navbar-fixed-top">
+    <nav class="navbar navbar-expand-md navbar-fixed-top">
       <div class="container">
         <a class="navbar-brand" href="/">
-          <img src="media/logo.svg" alt="Zoro" style="width:40px;">
+          <img src="{% static 'logo.svg' %}" alt="Zoro" style="width:40px;">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+        <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarToggle"
           aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -38,34 +38,37 @@
             <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fas fa-book-open"></i> Books</a>
             <a class="nav-item nav-link" onclick="openNav()"><i class="fas fa-quote-left"></i> Author</a>
             <a class="nav-item nav-link" href="{% url 'blog-home' %}"><i class="fas fa-blog"></i> Blog</a>
+            <a class="nav-item nav-link" href="{% url 'genre' %}">Genre</a>
           </div>
           <!-- Navbar Right Side -->
           <div class="navbar-nav">
             <form class="form-inline my-2 my-lg-0" method="GET">
-              <input type="search" class="form-control mr-sm-2 search" placeholder="Book Name / Author Name / Genre" aria-label="Search" name="q" value="{{ request.GET.q }}" size="31">
+              <input type="search" class="form-control mr-sm-2 " placeholder="Search" aria-label="Search" name="q" value="{{ request.GET.q }}" size="10">
                <button class="btn btn-outline-light search" type="submit" value="Submit">Search</button>
             </form>
-            {% if request.user.is_authenticated %}
+            {% if request.user.is_authenticated %} 
             <div class="btn-group">
-              <a class="nav-item nav-link" href="{% url 'profile' %}" style="font-size: 16px;">{{request.user.username}}</a>
+              <a class="nav-item nav-link" href="{% url 'profile' %}" style="font-size: 16px;">{{request.user.username}} Account <i class="fas fa-user-circle"></i></a>
               <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
               <div class="dropdown-menu">
-                <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdownfriend" aria-haspopup="true" aria-expanded="false"></button>
-                <div class="dropdown dropdownfriend dropleft">
-                  <a class="nav-item nav-link" href="{% url 'friendship_view_friends' request.user.username %}" ><i class="fas fa-user-friends"></i> Friends</a>
-                  <a class="nav-item nav-link" href="{% url 'friendship_request_list' %}" ><i class="fas fa-user-friends"></i> Friend Requests</a>
-                  <a class="nav-item nav-link" href="{% url 'friendship_requests_rejected' %}" ><i class="fas fa-user-friends"></i> Rejected</a>
-                </div>
-                <a class="nav-item nav-link" href="/friendship" ><i class="fas fa-user-friends"></i> Friends</a>
                 <a class="nav-item nav-link" href="/messages" ><i class="fas fa-envelope icon"></i> Messages</a>
                 <div class="dropdown-divider"></div>
                 <a class="nav-item nav-link" href="{% url 'favorites' %}"><i class="far fa-star icon"></i> Favourites</a>
                 <a class="nav-item nav-link" href="{% url 'collection' %}"><i class="fas fa-bookmark icon"></i> Collections</a>
                 <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fab fa-readme icon"></i> Reads</a>
                 <div class="dropdown-divider"></div>
-                <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt icon"></i> Logout</a>
               </div>
+          </div> &nbsp;&nbsp;&nbsp;
+          <div class="dropdown">
+            <button class="btn btn-dark btn-outline-light dropdown-toggle" type="button" data-toggle="dropdown"><i class="fas fa-user-friends"></i>
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <a class="nav-item nav-link" href="{% url 'friendship_view_friends' request.user.username %}" ><i class="fas fa-user-friends"></i> Friends</a>
+              <a class="nav-item nav-link" href="{% url 'friendship_request_list' %}" ><i class="fas fa-user-friends"></i> Friend Requests</a>
+              <a class="nav-item nav-link" href="{% url 'friendship_requests_rejected' %}" ><i class="fas fa-user-friends"></i> Rejected</a>
+            </ul>
           </div>
+          <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt icon"></i></a>
             {% else %}
             <a class="nav-item nav-link" href="{% url 'about' %}"> About </a>
             <a class="nav-item nav-link" href="{% url 'login' %}"> LogIn </a>
@@ -76,23 +79,28 @@
       </div>
     </nav>
   </header>
-  <main role="main" class="container" >
+  <main role="main" class="container container-fluid" >
     <div id="mySidenav" class="sidenav">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
       <a><img src="media/logo.svg" alt="Zoro" style="width:40px;"></a>
       <a class="nav-item nav-link" href="{% url 'book-create' %}">Start Book</a>
 		  <a class="nav-item nav-link" href="{% url 'chapter-create' %}">Release Chapter</a>
-		  <a class="nav-item nav-link" href="{% url 'genre' %}">Genre</a>
     </div>
-    {% if messages %}
-      {% for message in messages %}
-        <div class = "alert alert-{{ message.tags }}">{{ message }}</div>
-      {% endfor %}
-    {% endif %}
-    {% block  postman_menu %}
-    {% endblock %}
-    {% block content %}
-    {% endblock content %}
+    <div class="row">
+      <div class="col">
+        {% if messages %}
+          {% for message in messages %}
+            <div class = "alert alert-{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+        {% block  postman_menu %}
+        {% endblock %}
+        {% block login %}
+        {% endblock login %}
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </div>
 </main>
   <br><br><br>
   <!-- Optional JavaScript -->
@@ -107,6 +115,7 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
   <!-- Footer -->
+
   <section id="footer">
       <div class="container">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
@@ -131,12 +140,12 @@
             </ul>
           </div>
           <div class="col-xs-12 col-sm-3 col-md-3">
-            <h5>Book</h5>
+            <h5>Developer</h5>
             <ul class="list-unstyled quick-links">
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Home</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Developer Home</a></li>
+              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>DevCall</a></li>
+              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>ReachOut</a></li>
+              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Participate</a></li>
             </ul>
           </div>
           <div class="col-xs-12 col-sm-3 col-md-3">
@@ -171,15 +180,19 @@
       </div>
     </section>
     <script>
-      /* Set the width of the side navigation to 250px */
-        function openNav() {
-          document.getElementById("mySidenav").style.width = "250px";
-        }
-  
-        /* Set the width of the side navigation to 0 */
-        function closeNav() {
-          document.getElementById("mySidenav").style.width = "0";
-        }
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
     </script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}" type="text/javascript"></script>
+    <button type="button" id="feedback-btn" class="btn btn-info vertical-right-aligned">
+      Feedback <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+    </button>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'tellme/feedback.min.js' %}"></script>
+    {% include 'tellme/js_inc.html' %}
 </body>
 </html>

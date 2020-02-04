@@ -8,9 +8,10 @@
                 <legend class="border-bottom mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> Book Form</legend>
                 {{form.name.label_tag}} {{ form.name }}<br>
                 {{form.genre.label_tag}}{{ form.genre }}<br>
-                {{form.published_date.label_tag}}<input type="date" value="{{form.published_date}}"><br>
+                {{form.published_date.label_tag}}<input type="date" value={{form.published_date}}<br>
                 {{form.image.label_tag}}{{ form.image }}<br>
                 {{form.author.label_tag}}{{ form.author }}<br>
+                {{form.lang_code.label_tag}}{{ form.lang_code }}<br>
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-dark" type="submit">Add Book</button>

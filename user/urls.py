@@ -35,4 +35,5 @@ urlpatterns = [
          name='password_reset_complete'),
     path('friendship/', include('friendship.urls')),
     path('friends/',views.friends, name="friend"),
+    path('tellme/', include("tellme.urls")),
 ]

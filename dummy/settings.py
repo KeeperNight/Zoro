@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'django_comments',
     'friendship',
     'hitcount',
+    'languages',
+    'tellme',
 ]
 
 MIDDLEWARE = [

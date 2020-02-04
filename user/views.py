@@ -29,9 +29,8 @@ def home(request):
     if query:
         query_list= query_list.filter(
             Q(name__icontains=query)|
-            Q(author__name__icontains=query)|
             Q(genre__genre__icontains=query)
-            ).distinct()
+        ).distinct()
         #Searching Users by their username, firstname and lastname
         user_list = User.objects.filter(
             Q(username__icontains = query)|
@@ -49,7 +48,7 @@ def home(request):
         queryset=paginator.get_page(1)
     except EmptyPage:
         queryset=paginator.get_page(paginator.num_pages)
-    
+
     #Paginating users result
     paginator_user =Paginator(user_list,5)
     page_request_var="page"
@@ -86,9 +85,6 @@ def register(request):
     return render(request,'user/registration.html',{'form':form})
 
 def login(request):
-    print("changing status")
-    request.user.profile.is_online = True
-    
     return render(request,'user/login.html',{'form':form})
 
 
@@ -105,7 +101,7 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-        
+
     context = {
         'u_form':u_form,
         'p_form':p_form
@@ -113,9 +109,6 @@ def profile(request):
     return render(request,'user/profile.html',context)
 
 def logout(request):
-    print("changing status")
-    request.user.profile.is_online = False
-    request.user.profile.save()
     return render(request,'user/main.html')
 
 def main(request):
@@ -125,8 +118,7 @@ def about(request):
     return render(request,'user/about.html')
 
 def view_user_profile(request,user_id):
-    return render(request, 'user/profile.html')    
+    return render(request, 'user/profile.html')
 
 def friends(request):
     return render(request, 'user/friends.html')
-

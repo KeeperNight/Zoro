@@ -1,17 +1,17 @@
 from django.urls import path,include
-from .views import BookCreateView, ChapterCreateView, ChapterDetailView, BookUpdateView, ChapterUpdateView, AuthorBookListView, GenreBookListView
+from .views import BookCreateView, ChapterDetailView, BookUpdateView, ChapterUpdateView, UserBookListView, GenreBookListView
 from . import views
 
 
 urlpatterns = [
-    path('author/<str:username>', AuthorBookListView.as_view(), name="author-book"),
+    path('author/<str:username>', UserBookListView.as_view(), name="author-book"),
     path('genre/<str:genrename>', GenreBookListView.as_view(), name="genre-book"),
     path('<book_id>/detail', views.book_detail_view, name="detail"),
     path('chapter/<int:pk>/', ChapterDetailView.as_view(), name="chapter-detail"),
     path('book/<int:pk>/update/', BookUpdateView.as_view(), name="book-update"),
     path('chapter/<int:pk>/update/', ChapterUpdateView.as_view(), name="chapter-update"),
     path('new/', BookCreateView.as_view(), name="book-create"),
-    path('newchapter/', ChapterCreateView.as_view(), name="chapter-create"),
+    path('newchapter/', views.create_chapter, name="chapter-create"),
     path('<book_id>/add_favorite/',views.add_favorite, name='favorite'),
     path('genre/',views.genre, name="genre"),
     path('favorite/',views.favorite, name="favorites"),

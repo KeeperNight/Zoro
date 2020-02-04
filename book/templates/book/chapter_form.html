@@ -6,8 +6,8 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4"> Chapter Release Form</legend>
-                {{ form.media }}
-                {{ form.as_p }}
+                {{ chapter_form.media }}
+                {{ chapter_form.as_p }}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-dark" type="submit" value="Release"><i class="far fa-paper-plane"></i></button>

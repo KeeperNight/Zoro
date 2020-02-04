@@ -1,10 +1,10 @@
 .bg{
-    color:white;
+    color:whitesmoke;
     background-color: #111;
 }
 
 .site-header .navbar-nav .nav-link {
-    color: white;   
+    color: white;
 }
 
 .site-header .navbar-nav .nav-link:hover {
@@ -25,7 +25,7 @@ section {
 
 section .section-title {
     text-align: center;
-    
+
     margin-bottom: 50px;
     text-transform: uppercase;
 }
@@ -115,7 +115,7 @@ section .section-title {
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
   }
-  
+
   /* The navigation menu links */
 .sidenav a {
   padding: 8px 8px 8px 32px;
@@ -152,33 +152,57 @@ section .section-title {
   .sidenav a {font-size: 18px;}
 }
 
-  
+
 .card {
     border-radius: 12px;
-    box-shadow: 0 6px 10px -4px rgb(0, 0, 0);
+    box-shadow: 9px 9px 16px rgb(255,255,255,0.05), -9px -9px 16px    rgba(0, 0, 0, 0.6);
     background-color: #111;
     color: #bdbdbd;
-    margin-bottom: 20px;
+    margin:auto;
     position: relative;
     padding:1vw;
 }
 
-  input, select, textarea{
+input, select, textarea{
       border: 1px rgb(182, 182, 182) solid;
       border-radius: 5px;
-  }
+}
 
-  .rounded-circle{
+.rounded-circle{
       height: 15vw;
-  }
+}
 
-  .card-user{
+ .card-user{
       padding:1vh;
       background-color: #252422;
       border:2px black solid;
       border-radius: 10px;
       color:white;
-  }
+}
 .icon{
-      color:white;
-  }
+    color:white;
+}
+
+.search1{
+    width: 130px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+.search1:focus {
+    width: 100%;
+}
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.vertical-right-aligned {
+    transform: rotate(-90deg);
+    transform-origin: 100% 100%;
+    position: fixed;
+    right: 0;
+    top: 50%;
+    z-index: 100;
+}
