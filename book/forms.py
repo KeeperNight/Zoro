@@ -3,15 +3,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Book,Chapter
 
-
 class ChapterCreateForm(forms.ModelForm):
-    books = forms.ModelChoiceField(queryset=Book.objects.none())
+    book = forms.ModelChoiceField(queryset=Book.objects.none())
     
     class Meta:
         model = Chapter
-        fields = ['name','content']
+        fields = ['name','content','author','book']
 
     def __init__(self, *args, **kwargs):
-        author = kwargs.pop('author', None)
+        user = kwargs.pop('user', None)
         super(ChapterCreateForm, self).__init__(*args, **kwargs)
-        self.fields['books'].queryset=Book.objects.filter(author=author)
+        self.fields['book'].queryset=Book.objects.filter(author=user)

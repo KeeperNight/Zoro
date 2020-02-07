@@ -11,13 +11,6 @@ def get_online_now(self):
 
 
 class OnlineNowMiddleware(MiddlewareMixin):
-    """
-    Maintains a list of users who have interacted with the website recently.
-    Their user IDs are available as ``online_now_ids`` on the request object,
-    and their corresponding users are available (lazily) as the
-    ``online_now`` property on the request object.
-    """
-
     def process_request(self, request):
         # First get the index
         uids = cache.get('online-now', [])

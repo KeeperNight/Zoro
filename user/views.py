@@ -5,11 +5,18 @@ from .forms import UserRegistrationForm,UserUpdateForm,ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from book.models import Book
 from django.db.models import Q
-from .models import Collection
+from .models import Collection,Profile
 from django.contrib.auth.models import User
 from friendship.models import Friend, Follow, Block
 from book.models import Book
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import profileSerializer
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 #Home Page
@@ -122,3 +129,24 @@ def view_user_profile(request,user_id):
 
 def friends(request):
     return render(request, 'user/friends.html')
+
+class profileList(APIView):
+    def get(self,request):
+        profile1=User.objects.all()
+        serializer=profileSerializer(profile1, many=True)
+        return Response(serializer.data)
+        
+    def post(self):
+        pass
+
+
+def handler404(request, exception):
+    response = render_to_response("user/404.html")
+    response.status_code = 404
+    return response
+
+
+def handler500(request):
+    response = render_to_response('user/500.html')
+    response.status_code = 500
+    return response

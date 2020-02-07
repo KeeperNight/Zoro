@@ -2,6 +2,8 @@ from django.urls import path,include
 from django.contrib.auth import views as auth_views
 from . import views
 from django.conf.urls.static import static
+from rest_framework.urlpatterns import format_suffix_patterns
+from user import views
 
 
 urlpatterns = [
@@ -36,4 +38,6 @@ urlpatterns = [
     path('friendship/', include('friendship.urls')),
     path('friends/',views.friends, name="friend"),
     path('tellme/', include("tellme.urls")),
+    path('user_api/',views.profileList.as_view()),
 ]
+

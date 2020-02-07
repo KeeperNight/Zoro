@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Book, Genre, Chapter
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -50,24 +50,24 @@ class ChapterDetailView(DetailView):
 
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
-    fields = ["name", "genre", "lang_code", "published_date", "image"]
+    fields = ["name", "genre", "lang_code", "published_date", "image","is_explicit"]
 
     def form_valid(self, form):
-        form.instance.book_creator = self.request.user
+        form.instance.author = self.request.user
         form.save()
-        form.instance.author.set = self.request.user
         return super().form_valid(form)
 
-
+@login_required
 def create_chapter(request):
     if request.method == 'POST':
         chapter_form = ChapterCreateForm(request.POST,user=request.user)
-        if u_form.is_valid():
-            u_form.save()
+        if chapter_form.is_valid():
+            chapter_form.author=request.user.id
+            chapter_form.save()
             messages.success(request,f'Your Chapter is aired successfully!')
-            return redirect('profile')
+            return redirect('main')
     else:
-        chapter_form = ChapterCreateForm(author=request.user)
+        chapter_form = ChapterCreateForm(user=request.user)
     context = {
         'chapter_form':chapter_form
     }
@@ -76,10 +76,10 @@ def create_chapter(request):
 
 class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
-    fields = ["name", "genre", "image", "lang_code", "author"]
+    fields = ["name", "genre", "image", "lang_code", "author","is_explicit"]
 
     def form_valid(self, form):
-        form.instance.book_creator = self.request.user
+        form.instance.author= self.request.user
         form.save()
         return super().form_valid(form)
 

@@ -32,9 +32,7 @@
     <!-- Author -->
       {% block author %}
         <h3>Author(s)</h3>
-        {% for auth in book.author.all %}
-          <a class="mr-6" href="{% url 'author-book' auth %}" ><span class="badge badge-info" >{{auth}}</span></a> |
-        {% endfor %}<br>
+          <a class="mr-6" href="{% url 'author-book' book.author %}" ><span class="badge badge-info" >{{book.author}}</span></a> |
       {% endblock author %}
     <!-- Icon -->
       {% block icon %}

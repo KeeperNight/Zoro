@@ -21,22 +21,19 @@ class Genre(models.Model):
 class Book(models.Model):
     name = models.CharField(max_length=200)
     rating = models.PositiveIntegerField(default=0)
-    PUBLISHED = (("D", "Draft"), ("P", "Published"))
+    STATUS = (("D", "Draft"), ("P", "Published"),('R','Running'))
     image = models.ImageField(default="default.jpg", upload_to="book_covers")
-    published = models.CharField(max_length=2, choices=PUBLISHED)
-    author = models.ManyToManyField(User, related_name="book_author")
-    book_creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_added = models.DateField(("Date"), auto_now_add=True)
+    published = models.CharField(max_length=2, choices=STATUS)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     pages = models.PositiveIntegerField(default=0)
     favorite = models.ManyToManyField(User, related_name="favorite")
     genre = models.ManyToManyField(Genre, related_name="book_genre")
     isbn13 = models.IntegerField(null=True)
     published_date = models.DateField(unique=False)
-    start_date = models.DateField(null=True)
-    end_date = models.DateField(null=True)
     tags = TaggableManager()
     prog = models.ManyToManyField(User, related_name="pro", through="Progress")
     lang_code = LanguageField()
+    is_explicit = models.BooleanField(default=False)
 
 
     def __str__(self):
@@ -58,7 +55,7 @@ class Book(models.Model):
 class Chapter(models.Model):
     name = models.CharField(max_length=40)
     content = RichTextUploadingField()
-    author = models.ManyToManyField(User, related_name="chapter_author")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="chapters")
 
     def __str__(self):
