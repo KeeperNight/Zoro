@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 {% load ratings %}
 {% load staticfiles %}
+
 <script src="{% static 'hitcount/jquery.postcsrf.js' %}"></script>
 
 {% load hitcount_tags %}
@@ -12,56 +13,69 @@
 	Users 
 	{% for user in users %}
 	<div class="card text-center md">
+		{{user.username}}
 		{{ user.first_name }}
 		{{ user.last_name }}
-		<a href="{% url 'friendship_add_friend' user.username %}" style="color: red;"><i class="fas fa-user-friends"></i>Request</a> |
+		{{user.email}}
+		<a href="{% url 'friendship_add_friend' user.username %}" style="color: red;"><i class="fas fa-user-friends"></i></a>
 	</div>
 	{% endfor %}
 	{% endif %}
-	<div class="row">
+	<div class="container">
+	<div class="row" style="display: flex;">
+		{% with user.favorite.all as favorite_books %}
 		{% for book in books %}
-		<div class="col">
-			<div class="card text-center md">
-				<div class="card-block">
-						<img class="rounded book" src="{{ book.image.url }}" alt="{{book.name }}cover page">
-						<h4 class="card-title">{{ book.name }}</h4>
-							<p class="card-text">
-								<a href="{% url 'favorite' book.id %}" style="color: red;"><i class="fas fa-bookmark"></i></a> |
-								<a href="{% url 'detail' book.id %}"><i class="fas fa-info-circle" style="color:rgb(51, 51, 51);"></i></a>|
-								<p>Views <span class="badge badge-info" >{% get_hit_count for book %}</span></p>
-							</p>
-							<button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false;">
-								save
-							</button><br>
-							<div class="dropdown-menu">
-								<p style="background-color: black;color:white; border-radius: 3px; text-align: center;">Collections</p>
-								{% for collection in collections %}
-									<a class="dropdown-item" href="{% url 'add_collection' collection.id  book.id %}"><b>{{collection}}</b></a>
-								{% endfor %}
-								<form class="form-inline my-2 my-lg-0" method="GET" class="dropdown-item">
-									<input type="text" class="form-control mr-sm-2" placeholder="New Collection" aria-label="Create" name="coll" size="15">
-									<button class="btn btn-outline-dark" type="submit" value="Submit">&#10003</button>
-								</form>
-							</div>
-							{% get_hit_count_js_variables for book as hitcount %}
-							<script type="text/javascript">
-							jQuery(document).ready(function($) {
-							// use the template tags in our JavaScript call
-							$.postCSRF("{{ hitcount.ajax_url }}", { hitcountPK : "{{ hitcount.pk }}" })
-								.done(function(data){
-								$('<i />').text(data.hit_counted).attr('id','hit-counted-value').appendTo('#hit-counted');
-								$('#hit-response').text(data.hit_message);
-							}).fail(function(data){
-								console.log('POST failed');
-								console.log(data);
-							});
-							});
-							</script>
-					</div>
+		<div class="col" style=" flex: 15%; margin-bottom: 0.5vh ;">
+			<div class="card p-2 text-center md" style="width: 15rem; display: inline-block">
+				<img class="rounded book" src="{{ book.image.url }}" alt="{{book.name }}cover page">
+				<h4 class="card-title" class="text-decoration-none">{{ book.name }}</h4>
+				<p class="card-text">
+				{% if user.is_authenticated %}
+					{% if book in favorite_books %}
+						<a href="{% url 'favorite' book.id %}" style="color: red;"><i class="fas fa-heart"></i></a>&nbsp
+					{% endif %}
+					<button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false;">
+						save
+					</button><br>
+					<div class="dropdown-menu">
+						<p style="background-color: black;color:white; border-radius: 3px; text-align: center;">Collections</p>
+						{% for collection in collections %}
+							{% if book in collection.books.all %}
+									<a class="dropdown-item" href="{% url 'add_collection' collection.id  book.id %}"><i class="far fa-check-square"></i> {{collection}}</a>
+							{% else %}
+									<a class="dropdown-item" href="{% url 'add_collection' collection.id  book.id %}"><i class="far fa-square"></i> {{collection}}</a>
+							{% endif %}
+						{% endfor %}
+						<form class="form-inline my-2 my-lg-0" method="GET" class="dropdown-item">
+							<input type="text" class="form-control mr-sm-2" placeholder="New Collection" aria-label="Create" name="coll" size="15">
+							<button class="btn btn-outline-light" type="submit" value="Submit">&#10003</button>
+						</form>
+					</div>	
+				{% endif %}
+					<a href="{% url 'detail' book.id %}"><i class="fas fa-info-circle" style="color:whitesmoke;"></i> </a>
+					{% get_hit_count_js_variables for book as hitcount %}
+					<p>Views <span class="badge badge-info" >{% get_hit_count for book %}</span></p>
+				</p>
 			</div>
 		</div>
 	{% endfor %}
+	{% endwith %}
+
 </div>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+// use the template tags in our JavaScript call
+$.postCSRF("{{ hitcount.ajax_url }}", { hitcountPK : "{{ hitcount.pk }}" })
+	.done(function(data){
+	$('<i />').text(data.hit_counted).attr('id','hit-counted-value').appendTo('#hit-counted');
+	$('#hit-response').text(data.hit_message);
+}).fail(function(data){
+	console.log('POST failed');
+	console.log(data);
+});
+});
+</script>
 <!-- Pagination -->
 <div class="pagination ">
 	<span class="step-links">

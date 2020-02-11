@@ -97,7 +97,7 @@ class UserBookListView(ListView):
     model = Book
     template_name = "book/author_books.html"  # <app>/<model>_<viewtype>.html
     context_object_name = "books"
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get("username"))
@@ -108,7 +108,7 @@ class GenreBookListView(ListView):
     model = Book
     template_name = "book/genre_books.html"  # <app>/<model>_<viewtype>.html
     context_object_name = "books"
-    paginate_by = 5
+    paginate_by = 10
 
     def get_queryset(self):
         genre = get_object_or_404(Genre, genre=self.kwargs.get("genrename"))

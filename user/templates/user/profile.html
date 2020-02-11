@@ -1,5 +1,6 @@
 {% extends "user/base.html" %}
 {% load crispy_forms_tags %}
+{% load friendshiptags %}
 {% block content %}
         <div class="row">
           <div class="col-md-4">
@@ -24,10 +25,7 @@
                 <h4 class="card-title">Friends</h4>
               </div>
               <div class="card-body">
-                {% load friendshiptags %}
-                {% for friend in friends %}
-                {{friend.username}}
-                {% endfor %}
+                {% friends request.user %}
               </div>
             </div>
           </div>

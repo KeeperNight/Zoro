@@ -19,8 +19,14 @@
       {% block rating %}
       <h3>Ratings</h3>
       {% ratings book %}
-      <br><a href="{% url 'favorite' book.id %}"><i class="far fa-bookmark"></i></a> 
-      | <a href="{% url 'book-update' book.id %}"><i class="far fa-edit"></i></a>
+        {% if book in user.favorite.all %}
+          <a href="{% url 'favorite' book.id %}" style="color: red;"><i class="fas fa-heart"></i></a>
+        {% else %}
+          <a href="{% url 'favorite' book.id %}" style="color: red;"><i class="far fa-heart"></i></a>
+        {% endif %} &nbsp;
+      {% if request.user == book.author %}
+        <a href="{% url 'book-update' book.id %}"><i class="far fa-edit"></i></a>
+      {% endif %}
       {% endblock rating %}
       <!-- Genre -->
       {% block genre %}
@@ -46,17 +52,15 @@
       {% endblock chapter %}
       <!-- Comment Form -->
       {% block commentform %}
-        <div class="card">
           <div class="card-body">
             <h4 class="card-title text-center pb-3">Post your comment</h4>
               {% render_comment_form for book %}
           </div>
-        </div>
       {% endblock commentform %}
 
       <!-- Comments -->
       {% block comments %}
-      <div class="comments card">
+      <div class="comments">
         <h2 class="text-center">Comments</h2>
         {% render_xtdcomment_tree for book allow_flagging allow_feedback show_feedback  %}
       </div>

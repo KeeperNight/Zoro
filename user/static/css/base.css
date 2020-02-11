@@ -1,21 +1,31 @@
+.box{
+    margin-left:2em;
+    margin-right:2em;
+    font-family: 'Poiret One', cursive;
+}
 .bg{
     color:whitesmoke;
-    background-color: #111;
+    background-color: rgb(0, 0, 0);
+}
+.navbar {
+    font-family: 'Megrim', cursive;
 }
 
 .site-header .navbar-nav .nav-link {
-    color: white;
+    color:whitesmoke;
 }
 
 .site-header .navbar-nav .nav-link:hover {
-    color: #ffffff;
+    color:whitesmoke;
 }
 
 .site-header .navbar-nav .nav-link.active {
     font-weight: 500;
 
 }
-
+hr{
+    border:1px whitesmoke solid;
+}
 
 /* Footer */
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
@@ -25,21 +35,21 @@ section {
 
 section .section-title {
     text-align: center;
-
     margin-bottom: 50px;
     text-transform: uppercase;
 }
 #footer {
-    background-image: linear-gradient(to right, #434343 0%, black 100%);}
+    background-color:rgb(0, 0, 0);
+}
 #footer h5{
 	padding-left: 10px;
     border-left: 3px solid #eeeeee;
     padding-bottom: 6px;
     margin-bottom: 20px;
-    color:#ffffff;
+    color:whitesmoke;
 }
 #footer a {
-    color: #ffffff;
+    color:whitesmoke;
     text-decoration: none !important;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
@@ -60,10 +70,10 @@ section .section-title {
 }
 #footer ul.social li a,
 #footer ul.quick-links li a{
-	color:#ffffff;
+	color:whitesmoke;
 }
 #footer ul.social li a:hover{
-	color:#eeeeee;
+	color:whitesmoke;
 }
 #footer ul.quick-links li{
 	padding: 3px 0;
@@ -96,7 +106,7 @@ section .section-title {
     position: relative;
     top:10px;
     left:390px;
-    border: 2px solid white;
+    border: 2px solid whitesmoke;
     border-radius: 4px;
     box-shadow: 0px 0px 100px rgb(186, 186, 186);
     color: white;
@@ -110,7 +120,7 @@ section .section-title {
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #111; /* Black*/
+    background-color: rgb(0, 0, 0); /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -121,14 +131,14 @@ section .section-title {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color:whitesmoke;
   display: block;
   transition: 0.3s;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-  color: #f1f1f1;
+  color:whitesmoke;
 }
 
 /* Position and style the close button (top right corner) */
@@ -155,32 +165,32 @@ section .section-title {
 
 .card {
     border-radius: 12px;
-    box-shadow: 9px 9px 16px rgb(255,255,255,0.05), -9px -9px 16px    rgba(0, 0, 0, 0.6);
-    background-color: #111;
-    color: #bdbdbd;
-    margin:auto;
+    color:whitesmoke;
+    background-color:black;
     position: relative;
-    padding:1vw;
+    border:1px whitesmoke solid;
 }
 
 input, select, textarea{
       border: 1px rgb(182, 182, 182) solid;
       border-radius: 5px;
+      background-color:rgb(0, 0, 0);
+      color:whitesmoke;
 }
 
 .rounded-circle{
       height: 15vw;
 }
 
- .card-user{
+.card-user{
       padding:1vh;
       background-color: #252422;
       border:2px black solid;
       border-radius: 10px;
-      color:white;
+      color:whitesmoke;
 }
 .icon{
-    color:white;
+    color:whitesmoke;
 }
 
 .search1{
@@ -191,12 +201,6 @@ input, select, textarea{
 .search1:focus {
     width: 100%;
 }
-.container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
 
 .vertical-right-aligned {
     transform: rotate(-90deg);
@@ -205,4 +209,16 @@ input, select, textarea{
     right: 0;
     top: 50%;
     z-index: 100;
+}
+/* For book list display */
+.col {
+    flex: 10%;
+    padding:2vh;
+}
+.row {
+    display: flex;
+}
+
+a{
+    text-decoration:none;
 }

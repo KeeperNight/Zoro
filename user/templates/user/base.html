@@ -7,6 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Megrim&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" href="{% static 'css/book.css' %}">
     <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
@@ -29,6 +31,7 @@
         <a class="navbar-brand" href="/">
           <img src="{% static 'logo.svg' %}" alt="Zoro" style="width:40px;">
         </a>
+        <h3 id="sitetitle navbar-brand">Zoro</h3>
         <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#navbarToggle"
           aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -46,17 +49,16 @@
               <input type="search" class="form-control mr-sm-2 " placeholder="Search" aria-label="Search" name="q" value="{{ request.GET.q }}" size="10">
                <button class="btn btn-outline-light search" type="submit" value="Submit">Search</button>
             </form>
+            <a class="nav-item nav-link" href="{% url 'profile' %}" style="font-size: 16px;">{{request.user.username}} <i class="fas fa-user-circle"></i></a>
             {% if request.user.is_authenticated %} 
             <div class="btn-group">
-              <a class="nav-item nav-link" href="{% url 'profile' %}" style="font-size: 16px;">{{request.user.username}} Account <i class="fas fa-user-circle"></i></a>
               <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
               <div class="dropdown-menu">
                 <a class="nav-item nav-link" href="/messages" ><i class="fas fa-envelope icon"></i> Messages</a>
                 <div class="dropdown-divider"></div>
-                <a class="nav-item nav-link" href="{% url 'favorites' %}"><i class="far fa-star icon"></i> Favourites</a>
+                <a class="nav-item nav-link" href="{% url 'favorites' %}"><i class="fas fa-heart"></i> Favourites</a>
                 <a class="nav-item nav-link" href="{% url 'collection' %}"><i class="fas fa-bookmark icon"></i> Collections</a>
                 <a class="nav-item nav-link" href="{% url 'home' %}"><i class="fab fa-readme icon"></i> Reads</a>
-                <div class="dropdown-divider"></div>
               </div>
           </div> &nbsp;&nbsp;&nbsp;
           <div class="dropdown">
@@ -79,9 +81,10 @@
       </div>
     </nav>
   </header>
-  <main role="main" class="container container-fluid" >
+  
+  <main role="main" class="box" >
     <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="#")" class="closebtn" onclick="closeNav()">&times;</a>
       <a><img src="media/logo.svg" alt="Zoro" style="width:40px;"></a>
       <a class="nav-item nav-link" href="{% url 'book-create' %}">Start Book</a>
 		  <a class="nav-item nav-link" href="{% url 'chapter-create' %}">Release Chapter</a>
@@ -115,57 +118,57 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
   </script>
   <!-- Footer -->
-
+<hr>
   <section id="footer">
-      <div class="container">
+      <div class="box">
         <div class="row text-center text-xs-center text-sm-left text-md-left">
           <div class="col-xs-12 col-sm-3 col-md-3">
             <h5>Reader</h5>
             <ul class="list-unstyled quick-links">
               <li><a href="{% url 'home' %}"><i class="fa fa-angle-double-right"></i>Home</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>About</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Books</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Favorites</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>About</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Books</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Get Started</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Favorites</a></li>
             </ul>
           </div>
           <div class="col-xs-12 col-sm-3 col-md-3">
             <h5>Author</h5>
             <ul class="list-unstyled quick-links">
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Author Search</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Add Author</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>View Author</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Update Author</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>#</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Author Search</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Add Author</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>View Author</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Update Author</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>#</a></li>
             </ul>
           </div>
           <div class="col-xs-12 col-sm-3 col-md-3">
             <h5>Developer</h5>
             <ul class="list-unstyled quick-links">
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Developer Home</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>DevCall</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>ReachOut</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Participate</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Developer Home</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>DevCall</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>ReachOut</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Participate</a></li>
             </ul>
           </div>
           <div class="col-xs-12 col-sm-3 col-md-3">
             <h5>BooKeeper System</h5>
             <ul class="list-unstyled quick-links">
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Users Online : {{ request.online_now |length }}</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i> Next Update: 01-01-2020</a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i>Update List </a></li>
-              <li><a href="javascript:void();"><i class="fa fa-angle-double-right"></i> Get Author Badge</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Users Online : {{ request.online_now |length }}</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i> Next Update: 01-01-2020</a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i>Update List </a></li>
+              <li><a href="#";"><i class="fa fa-angle-double-right"></i> Get Author Badge</a></li>
             </ul>
           </div>
         </div>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
             <ul class="list-unstyled list-inline social text-center">
-              <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
-              <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
-              <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
-              <li class="list-inline-item"><a href="javascript:void();"><i class="fa fa-google-plus"></i></a></li>
-              <li class="list-inline-item"><a href="javascript:void();" target="_blank"><i class="fa fa-envelope"></i></a></li>
+              <li class="list-inline-item"><a href="#";"><i class="fa fa-facebook"></i></a></li>
+              <li class="list-inline-item"><a href="#";"><i class="fa fa-twitter"></i></a></li>
+              <li class="list-inline-item"><a href="#";"><i class="fa fa-instagram"></i></a></li>
+              <li class="list-inline-item"><a href="#";"><i class="fa fa-google-plus"></i></a></li>
+              <li class="list-inline-item"><a href="#";" target="_blank"><i class="fa fa-envelope"></i></a></li>
             </ul>
           </div>
           </hr>
