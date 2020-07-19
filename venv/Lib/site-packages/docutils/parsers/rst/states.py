@@ -137,7 +137,7 @@ class Struct(object):
 class RSTStateMachine(StateMachineWS):
 
     """
-    reStructuredText's master StateMachine.
+    reStructuredText's main StateMachine.
 
     The entry point to reStructuredText parsing is the `run()` method.
     """
