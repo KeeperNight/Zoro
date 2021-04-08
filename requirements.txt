@@ -1,5 +1,5 @@
 asgiref==3.2.3
-Django==2.2.10
+Django==2.2.20
 django-braces==1.13.0
 django-ckeditor==5.8.0
 django-cleanup==4.0.0
